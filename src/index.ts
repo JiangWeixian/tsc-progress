@@ -1,51 +1,53 @@
 import * as ts from 'typescript'
-import fs from 'fs'
-import path from 'path'
-import os from 'os'
+import prettyTime from 'pretty-time'
+
 import FancyReporter from './fancy'
 
 const reporter = new FancyReporter()
 
-export default function tscProgress(_program: ts.Program) {
-  let total = 0
-  const totalFilePath = path.resolve(os.tmpdir(), './tsc-progress')
-  try {
-    total = Number(fs.readFileSync(totalFilePath).toString())
-  } catch (e) {
-    fs.writeFileSync(totalFilePath, '0')
-  }
+type Options = {
+  title: string
+  color: string
+}
+
+export default function tscProgress(
+  program: ts.Program,
+  options: Options,
+): ts.TransformerFactory<any> {
+  const total = program.getRootFileNames().filter((filepath) => !filepath.endsWith('.d.ts')).length
 
   const progress = {
     total,
     loaded: 0,
+    start: process.hrtime(),
   }
 
-  return {
-    before(_ctx: ts.TransformationContext) {
-      return (sourceFile: ts.SourceFile) => {
-        progress.loaded += 1
-        let percent = 80
-        if (progress.total > 0) {
-          percent = Math.round((100 * progress.loaded) / progress.total)
-        }
-        reporter.updateStatesArray([
-          {
-            name: 'webpack',
-            progress: percent,
-            color: 'blue',
-            details: [sourceFile.fileName],
-            message: '',
-            hasErrors: false,
-            done: false,
-            start: null,
-            request: null,
-          },
-        ])
-        reporter.progress()
-        fs.writeFileSync(totalFilePath, progress.loaded.toString())
-        return sourceFile
+  return () => {
+    return (sourceFile: ts.SourceFile) => {
+      progress.loaded += 1
+      let percent = 99.9
+      if (progress.total > 0) {
+        percent = Math.round((100 * progress.loaded) / progress.total)
       }
-    },
+      reporter.updateStatesArray([
+        {
+          name: options.title || 'TSC',
+          progress: percent,
+          color: options.color || 'green',
+          details: [sourceFile.fileName],
+          message:
+            percent !== 100
+              ? 'building'
+              : `Compiled successfully in ${prettyTime(process.hrtime(progress.start))}`,
+          hasErrors: false,
+          done: false,
+          start: null,
+          request: null,
+        },
+      ])
+      reporter.progress()
+      return sourceFile
+    }
   }
 }
 

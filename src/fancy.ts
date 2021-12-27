@@ -1,13 +1,11 @@
 // @ts-nocheck
 // progress bar code from refs: https://github.com/unjs/webpackbar
 import chalk from 'chalk'
-import _consola from 'consola'
 import ansiEscapes from 'ansi-escapes'
 import wrapAnsi from 'wrap-ansi'
 import figures from 'figures'
 
 const { bullet, tick, cross, radioOff, pointerSmall } = figures
-// const nodeModules = `${delimiter}node_modules${delimiter}`
 const BAR_LENGTH = 25
 const BLOCK_CHAR = '█'
 const BLOCK_CHAR2 = '█'
@@ -24,8 +22,6 @@ function range(len) {
   }
   return arr
 }
-
-export const consola = _consola.withTag('webpackbar')
 
 export const colorize = (color) => {
   if (color[0] === '#') {
@@ -69,9 +65,7 @@ export const formatRequest = (request) => {
   return `${loaders}${NEXT}${request.file}`
 }
 
-// Based on https://github.com/sindresorhus/log-update/blob/master/index.js
-
-const originalWrite = Symbol('webpackbarWrite')
+const originalWrite = Symbol('tscWrite')
 class LogUpdate {
   private prevLineCount: any
   private listening: any
@@ -190,7 +184,7 @@ const logUpdate = new LogUpdate()
 
 let lastRender = Date.now()
 
-export interface State {
+interface State {
   start: [number, number] | null
   progress: number
   done: boolean
@@ -206,7 +200,8 @@ export interface State {
 }
 
 export default class FancyReporter {
-  statesArray: State[]
+  statesArray: State[] = []
+  hasErrors = false
 
   updateStatesArray(statesArray: State[]) {
     this.statesArray = statesArray
