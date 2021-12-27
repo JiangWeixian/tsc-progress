@@ -1,5 +1,5 @@
 # tsc-progress
-*build ts lib template*
+*ttypescript build progressbar*
 
 [![npm](https://img.shields.io/npm/v/tsc-progress)](https://github.com/JiangWeixian/tsc-progress/tree/master) [![GitHub](https://img.shields.io/npm/l/tsc-progress)](https://github.com/JiangWeixian/tsc-progress/tree/master)
 
