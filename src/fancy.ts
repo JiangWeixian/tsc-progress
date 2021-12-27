@@ -1,6 +1,6 @@
 // @ts-nocheck
 // progress bar code from refs: https://github.com/unjs/webpackbar
-import chalk from 'chalk'
+import pc from 'picocolors'
 import ansiEscapes from 'ansi-escapes'
 import wrapAnsi from 'wrap-ansi'
 import figures from 'figures'
@@ -9,7 +9,7 @@ const { bullet, tick, cross, radioOff, pointerSmall } = figures
 const BAR_LENGTH = 25
 const BLOCK_CHAR = '█'
 const BLOCK_CHAR2 = '█'
-const NEXT = ` ${chalk.blue(pointerSmall)} `
+const NEXT = ` ${pc.blue(pointerSmall)} `
 const BULLET = bullet
 const TICK = tick
 const CROSS = cross
@@ -25,15 +25,15 @@ function range(len) {
 
 export const colorize = (color) => {
   if (color[0] === '#') {
-    return chalk.hex(color)
+    return pc.hex(color)
   }
 
-  return chalk[color] || chalk.keyword(color)
+  return pc[color] || pc.keyword(color)
 }
 
 export const renderBar = (progress, color) => {
   const w = progress * (BAR_LENGTH / 100)
-  const bg = chalk.white(BLOCK_CHAR)
+  const bg = pc.white(BLOCK_CHAR)
   const fg = colorize(color)(BLOCK_CHAR2)
 
   return range(BAR_LENGTH)
@@ -247,12 +247,12 @@ export default class FancyReporter {
         renderBar(state.progress, state.color),
         state.message,
         `(${state.progress || 0}%)`,
-        chalk.grey(state.details[0] || ''),
-        chalk.grey(state.details[1] || ''),
+        pc.gray(state.details[0] || ''),
+        pc.gray(state.details[1] || ''),
       ].join(' ')
 
       line2 = state.request
-        ? ` ${chalk.grey(ellipsisLeft(formatRequest(state.request), logUpdate.columns))}`
+        ? ` ${pc.gray(ellipsisLeft(formatRequest(state.request), logUpdate.columns))}`
         : ''
     } else {
       let icon = ' '
@@ -266,7 +266,7 @@ export default class FancyReporter {
       }
 
       line1 = color(`${icon} ${state.name}`)
-      line2 = chalk.grey(`  ${state.message}`)
+      line2 = pc.gray(`  ${state.message}`)
     }
 
     return `${line1}\n${line2}`

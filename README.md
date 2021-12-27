@@ -1,21 +1,33 @@
-# @aiou/ts-lib-template
+# tsc-progress
 *build ts lib template*
 
-[![npm](https://img.shields.io/npm/v/@aiou/ts-lib-template)](https://github.com/spring-catponents/ts-lib-template/tree/master) [![GitHub](https://img.shields.io/npm/l/@aiou/ts-lib-template)](https://github.com/spring-catponents/ts-lib-template/tree/master) [![stackblitz](https://img.shields.io/badge/%E2%9A%A1%EF%B8%8Fstackblitz-online-blue)](https://stackblitz.com/github/spring-catponents/ts-lib-template/tree/master)
+[![npm](https://img.shields.io/npm/v/tsc-progress)](https://github.com/JiangWeixian/tsc-progress/tree/master) [![GitHub](https://img.shields.io/npm/l/tsc-progress)](https://github.com/JiangWeixian/tsc-progress/tree/master)
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/github/spring-catponents/ts-lib-template/tree/master)
+## install
 
+```console
+npm i tsc-progress
+```
+## usage
 
-## features
+in `tsconfig.json`
 
-- 💪 Type safe - build with `ttsc`
-- 💞 replace `alias` path to `real` path
-- 🥽 watch mode
+```json
+{
+  // ...
+  "plugins": [
+    {
+      "transform": "tsc-progress",
+      "title": "TSC"
+    }
+  ]
+}
+```
 
-## development
+`options`
 
-- **Setup** - `pnpm i`
-- **Build** - `pnpm build`
+- `title` - define progressbar title, default `TSC`
+- `color` - define progressbar color, default `green`
 
 # 
 <div align='right'>
