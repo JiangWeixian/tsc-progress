@@ -5,20 +5,26 @@ const reporter = new FancyReporter()
 export const progress = () => {
   let progress = 0
   setInterval(() => {
+    if (progress >= 100) {
+      return
+    }
     progress += 10
     reporter.updateStatesArray([
       {
         progress,
-        details: ['a'],
-        color: 'blue',
-        name: 'webpack',
-        message: 'webpack-message',
+        details: [],
+        color: 'green',
+        name: 'TSC',
+        message: progress === 100 ? 'Success' : 'Building',
         hasErrors: false,
         done: false,
-        start: [80, 80],
+        start: null,
         request: null,
       },
     ])
     reporter.progress()
+    if (progress === 100) {
+      reporter.done()
+    }
   }, 1000)
 }
