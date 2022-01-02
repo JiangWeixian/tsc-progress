@@ -1,5 +1,11 @@
 # tsc-progress
 
+## 1.0.2
+
+### Patch Changes
+
+- 7bf789b: deprecated tslib
+
 ## 1.0.1
 
 ### Patch Changes

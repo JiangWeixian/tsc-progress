@@ -1,6 +1,6 @@
 {
   "name": "tsc-progress",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "display progress bar in tsc build",
   "keywords": [
     "typescript",
