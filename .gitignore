@@ -151,3 +151,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Fixtures
+test/fixtures/fake

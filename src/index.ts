@@ -10,17 +10,19 @@ type Options = {
   color: string
 }
 
+const progress = {
+  total: 0,
+  loaded: 0,
+  start: process.hrtime(),
+}
+
 export default function tscProgress(
   program: ts.Program,
   options: Options,
 ): ts.TransformerFactory<any> {
   const total = program.getRootFileNames().filter((filepath) => !filepath.endsWith('.d.ts')).length
 
-  const progress = {
-    total,
-    loaded: 0,
-    start: process.hrtime(),
-  }
+  progress.total = total
 
   return () => {
     return (sourceFile: ts.SourceFile) => {

@@ -182,8 +182,6 @@ class LogUpdate {
 
 const logUpdate = new LogUpdate()
 
-let lastRender = Date.now()
-
 interface State {
   start: [number, number] | null
   progress: number
@@ -220,14 +218,10 @@ export default class FancyReporter {
   }
 
   progress() {
-    if (Date.now() - lastRender > 50) {
-      this._renderStates(this.statesArray)
-    }
+    this._renderStates(this.statesArray)
   }
 
   _renderStates(statesArray: State[]) {
-    lastRender = Date.now()
-
     const renderedStates = statesArray.map((c) => this._renderState(c)).join('\n\n')
 
     logUpdate.render(`\n${renderedStates}\n`)

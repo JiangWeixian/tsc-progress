@@ -30,7 +30,8 @@
   "typings": "lib/index.d.ts",
   "scripts": {
     "build": "rimraf lib && ttsc",
-    "test": "echo test",
+    "pretest": "pnpm run build && esrua ./test/fixtures.ts main",
+    "test": "pnpm run pretest && cd ./test/fixtures && ttsc",
     "ci:publish": "pnpm run build && pnpx changeset publish",
     "ci:version": "pnpx changeset version",
     "ci:snapshot": "pnpx changeset version --snapshot beta",
@@ -41,6 +42,9 @@
     "**/**/*.{js,ts,tsx,vue,json}": [
       "eslint --fix"
     ]
+  },
+  "peerDependencies": {
+    "typescript": "*"
   },
   "dependencies": {
     "ansi-escapes": "4.x",
@@ -54,13 +58,15 @@
     "@aiou/eslint-config": "0.3.2",
     "@changesets/cli": "^2.16.0",
     "@types/cli-progress": "^3.9.2",
+    "@types/fs-extra": "^9.0.13",
     "@types/jest": "26.0.23",
     "@types/node": "^17.0.4",
     "@types/pretty-time": "^1.1.2",
     "@types/wrap-ansi": "^8.0.1",
     "cz-emoji": "^1.3.1",
     "eslint": "^7.30.0",
-    "esrua": "^0.0.2",
+    "esrua": "^0.1.0",
+    "fs-extra": "^10.0.0",
     "husky": "^7.0.0",
     "jest": "27.0.6",
     "lint-staged": "^11.0.1",
@@ -69,6 +75,7 @@
     "prettier": "2.3.2",
     "pretty-quick": "3.1.1",
     "rimraf": "3.0.2",
+    "tempy": "1.x",
     "ts-jest": "27.0.3",
     "ts-node": "10.0.0",
     "tslib": "2.3.0",
