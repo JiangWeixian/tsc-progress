@@ -1,5 +1,11 @@
 # tsc-progress
 
+## 1.0.3
+
+### Patch Changes
+
+- a860ebc: fix progress not working on child_process
+
 ## 1.0.2
 
 ### Patch Changes
