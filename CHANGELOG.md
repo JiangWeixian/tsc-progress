@@ -1,5 +1,11 @@
 # tsc-progress
 
+## 1.0.4
+
+### Patch Changes
+
+- da9ac76: fix watch mode stats
+
 ## 1.0.3
 
 ### Patch Changes
