@@ -32,6 +32,7 @@
     "build": "rimraf lib && ttsc",
     "pretest": "pnpm run build && esrua ./test/fixtures.ts main",
     "test": "pnpm run pretest && cd ./test/fixtures && ttsc",
+    "watch:test": "pnpm run pretest && cd ./test/fixtures && ttsc -w",
     "ci:publish": "pnpm run build && pnpx changeset publish",
     "ci:version": "pnpx changeset version",
     "ci:snapshot": "pnpx changeset version --snapshot beta",

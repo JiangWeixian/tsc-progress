@@ -38,7 +38,8 @@ export default function tscProgress(
           color: options.color || 'green',
           details: [sourceFile.fileName],
           message:
-            percent !== 100
+            // in watch mode, loaded more than total
+            percent < 100
               ? 'building'
               : `Compiled successfully in ${prettyTime(process.hrtime(progress.start))}`,
           hasErrors: false,
